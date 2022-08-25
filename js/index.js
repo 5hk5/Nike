@@ -38,25 +38,31 @@ window.onload=()=>{
         },'fast');
     }) //태블릿, 모바일 메뉴 종료
 
-
-    //햄버거 메뉴 //오류
-    $('.main-menu>li>a').click((event)=>{
-        event.stopPropagation();
-        $(this).siblings('.sub-menu').animate({left:'0%'},'fast');
+    
+    //햄버거 메뉴 
+    $('.main-menu>li>a').click(function(){
+        $(this).siblings('.sub-menu').animate({
+            left:'0%'
+        },'fast');
     });
 
-    $('.all>a').click((event)=>{
-        event.stopPropagation();
+    $('.all>a').click(function(){
         $(this).parents('.sub-menu').animate({left:'150%'},'fast');
     });
 
-    $('.menu-area').click(()=>{
-        $('.index-wrap').css('filter','blur(0px)');
-        $('.h-top').animate({
-            right:'-100%'
-        },'fast',()=>{
-            $('.menu-area').hide();
-        });
+    $('.menu-area').click(function(event){
+        console.log($(this).has(event.target).length); 
+        //event.target : 이벤트버블링 최하위요소 반환
+        console.log($(this).has(event.target));
+        if($(this).has(event.target).length==0){
+            $('.index-wrap').css('filter','blur(0px)');
+            $('body, html').css({height:'auto',overflow:'visible'});
+            $('.h-top').animate({
+                right:'-100%'
+            },'fast',()=>{
+                $('.menu-area').hide();
+            });
+        }
     });
 
 
